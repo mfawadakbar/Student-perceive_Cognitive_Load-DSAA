@@ -22,8 +22,8 @@ import numpy as np
 warnings.filterwarnings("ignore")
 
 # Set all seeds for reproducibility
-SPLIT_SEED = 151
-ALGO_SEED = 83
+SPLIT_SEED = 38
+ALGO_SEED = 45
 # np.random.seed(SEED)
 
 def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
@@ -67,15 +67,15 @@ def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
 
     # Model definitions with enhanced reproducibility
     models = {
-        # 'Linear Regression': LinearRegression(),
-        # 'Random Forest': RandomForestRegressor(
-        #     n_estimators=100, max_depth=10, random_state=ALGO_SEED, n_jobs=1
-        # ),
-        # 'Support Vector Regressor': SVR(kernel='rbf', C=10, epsilon=0.1, gamma='scale'),
-        # 'Decision Tree': DecisionTreeRegressor(max_depth=10, random_state=ALGO_SEED),
-        # 'XGBoost': XGBRegressor(random_state=ALGO_SEED, n_estimators=100, n_jobs=1),
-        # 'Gradient Boosting': GradientBoostingRegressor(random_state=ALGO_SEED),
-        # 'KNN Regression': KNeighborsRegressor(n_neighbors=5),
+        'Linear Regression': LinearRegression(),
+        'Random Forest': RandomForestRegressor(
+            n_estimators=100, max_depth=10, random_state=ALGO_SEED, n_jobs=1
+        ),
+        'Support Vector Regressor': SVR(kernel='rbf', C=10, epsilon=0.1, gamma='scale'),
+        'Decision Tree': DecisionTreeRegressor(max_depth=10, random_state=ALGO_SEED),
+        'XGBoost': XGBRegressor(random_state=ALGO_SEED, n_estimators=100, n_jobs=1),
+        'Gradient Boosting': GradientBoostingRegressor(random_state=ALGO_SEED),
+        'KNN Regression': KNeighborsRegressor(n_neighbors=5),
         'Extra Trees': ExtraTreesRegressor(random_state=ALGO_SEED, n_jobs=1)
     }
 
@@ -108,136 +108,136 @@ def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
         }
         print(f"{name} - R2: {r2:.2f}, RMSE: {rmse:.2f}")
 
-    # # Plotting configuration
-    # plt.rcParams.update({
-    #     'font.size': 20,
-    #     'font.weight': 'bold',
-    #     'axes.labelweight': 'bold',
-    #     'axes.titleweight': 'bold'
-    # })
+    # Plotting configuration
+    plt.rcParams.update({
+        'font.size': 20,
+        'font.weight': 'bold',
+        'axes.labelweight': 'bold',
+        'axes.titleweight': 'bold'
+    })
 
-    # # Create combined prediction plot
-    # plt.figure(figsize=(15, 8))
+    # Create combined prediction plot
+    plt.figure(figsize=(15, 8))
 
-    # # Plot ground truth
-    # plt.plot(y_test, 
-    #         label='Ground Truth', 
-    #         color='green', 
-    #         linestyle='-', 
-    #         linewidth=3,
-    #         marker='o', 
-    #         markersize=8,
-    #         alpha=0.7)
+    # Plot ground truth
+    plt.plot(y_test, 
+            label='Ground Truth', 
+            color='green', 
+            linestyle='-', 
+            linewidth=3,
+            marker='o', 
+            markersize=8,
+            alpha=0.7)
 
-    # # Define styling for each model
-    # model_styles = {
-    #     'Random Forest': {'ls': '--', 'marker': 's', 'color': 'orange', 'markersize': 8},
-    #     'XGBoost': {'ls': '-.', 'marker': 'D', 'color': 'blue', 'markersize': 7},
-    #     'Extra Trees': {'ls': ':', 'marker': '^', 'color': 'red', 'markersize': 9}
-    # }
+    # Define styling for each model
+    model_styles = {
+        'Random Forest': {'ls': '--', 'marker': 's', 'color': 'orange', 'markersize': 8},
+        'XGBoost': {'ls': '-.', 'marker': 'D', 'color': 'blue', 'markersize': 7},
+        'Extra Trees': {'ls': ':', 'marker': '^', 'color': 'red', 'markersize': 9}
+    }
 
-    # # Plot predictions for each model
-    # for name, style in model_styles.items():
-    #     if name in results:
-    #         y_pred = results[name]['y_pred']
-    #         rmse = results[name]['RMSE']
-    #         plt.plot(y_pred,
-    #                 linestyle=style['ls'],
-    #                 marker=style['marker'],
-    #                 color=style['color'],
-    #                 markersize=style['markersize'],
-    #                 linewidth=2.5,
-    #                 alpha=0.8,
-    #                 label=f"{name} (RMSE: {rmse:.2f})")
+    # Plot predictions for each model
+    for name, style in model_styles.items():
+        if name in results:
+            y_pred = results[name]['y_pred']
+            rmse = results[name]['RMSE']
+            plt.plot(y_pred,
+                    linestyle=style['ls'],
+                    marker=style['marker'],
+                    color=style['color'],
+                    markersize=style['markersize'],
+                    linewidth=2.5,
+                    alpha=0.8,
+                    label=f"{name} (RMSE: {rmse:.2f})")
 
-    # plt.xlabel('Sample Index', weight='bold')
-    # plt.ylabel('Demanding Score', weight='bold')
-    # plt.title('Model Predictions Comparison', weight='bold', pad=16)
+    plt.xlabel('Sample Index', weight='bold')
+    plt.ylabel('Demanding Score', weight='bold')
+    plt.title('Model Predictions Comparison', weight='bold', pad=16)
 
-    # plt.legend(
-    #     fontsize=16,
-    #     loc='upper center',
-    #     bbox_to_anchor=(0.5, 1.2),
-    #     ncol=3,
-    #     frameon=True,
-    #     framealpha=0.2,
-    #     facecolor='silver'
-    # )
+    plt.legend(
+        fontsize=16,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.2),
+        ncol=3,
+        frameon=True,
+        framealpha=0.2,
+        facecolor='silver'
+    )
 
-    # plt.grid(True, linestyle='--', alpha=0.3)
-    # plt.tight_layout()
+    plt.grid(True, linestyle='--', alpha=0.3)
+    plt.tight_layout()
     
-    # # Save plot
-    # os.makedirs("figures/ml_modelling/", exist_ok=True)
-    # plt.savefig("figures/ml_modelling/combined_predictions.eps", 
-    #            dpi=300, 
-    #            format='eps',
-    #            bbox_inches='tight')
-    # plt.show()
+    # Save plot
+    os.makedirs("figures/ml_modelling/", exist_ok=True)
+    plt.savefig("figures/ml_modelling/combined_predictions.eps", 
+               dpi=300, 
+               format='eps',
+               bbox_inches='tight')
+    plt.show()
 
 
-    # # Feature Importance Plotting
-    # plt.rcParams.update({
-    #     'font.size': 9,
-    #     'font.family': 'sans-serif',
-    #     'axes.titlesize': 9,
-    #     'axes.labelsize': 8
-    # })
+    # Feature Importance Plotting
+    plt.rcParams.update({
+        'font.size': 9,
+        'font.family': 'sans-serif',
+        'axes.titlesize': 9,
+        'axes.labelsize': 8
+    })
 
-    # # Get the trained pipeline for Extra Trees
-    # et_result = results['Extra Trees']
-    # et_pipeline = et_result['pipeline']
+    # Get the trained pipeline for Extra Trees
+    et_result = results['Extra Trees']
+    et_pipeline = et_result['pipeline']
 
-    # # Get proper feature names from preprocessing
-    # preprocessor = et_pipeline.named_steps['preprocessor']
-    # feature_names = preprocessor.get_feature_names_out()
+    # Get proper feature names from preprocessing
+    preprocessor = et_pipeline.named_steps['preprocessor']
+    feature_names = preprocessor.get_feature_names_out()
 
-    # # Get feature importance from ACTUAL trained model
-    # trained_model = et_pipeline.named_steps['model']
-    # feature_importance = trained_model.feature_importances_
+    # Get feature importance from ACTUAL trained model
+    trained_model = et_pipeline.named_steps['model']
+    feature_importance = trained_model.feature_importances_
 
-    # # Process features
-    # sorted_indices = np.argsort(feature_importance)[::-1]
-    # sorted_features = [feature_names[i] for i in sorted_indices[:20]] 
-    # sorted_importance = feature_importance[sorted_indices[:20]]
+    # Process features
+    sorted_indices = np.argsort(feature_importance)[::-1]
+    sorted_features = [feature_names[i] for i in sorted_indices[:20]] 
+    sorted_importance = feature_importance[sorted_indices[:20]]
 
-    # # Create compact figure
-    # fig, ax = plt.subplots(figsize=(5, 5)) 
+    # Create compact figure
+    fig, ax = plt.subplots(figsize=(5, 5)) 
 
-    # # Horizontal bar plot (rest of your plotting code remains the same)
-    # ax.barh(
-    #     np.arange(20)[::-1],
-    #     sorted_importance,
-    #     height=0.6,
-    #     color='#1f77b4',
-    #     edgecolor='w'
-    # )
+    # Horizontal bar plot (rest of your plotting code remains the same)
+    ax.barh(
+        np.arange(20)[::-1],
+        sorted_importance,
+        height=0.6,
+        color='#1f77b4',
+        edgecolor='w'
+    )
 
-    # # Feature labels with smart wrapping
-    # max_chars_per_line = 40
-    # wrapped_labels = [
-    #     '\n'.join(textwrap.wrap(f, max_chars_per_line, break_long_words=False))
-    #     for f in sorted_features
-    # ]
+    # Feature labels with smart wrapping
+    max_chars_per_line = 40
+    wrapped_labels = [
+        '\n'.join(textwrap.wrap(f, max_chars_per_line, break_long_words=False))
+        for f in sorted_features
+    ]
 
-    # ax.set_yticks(np.arange(20)[::-1])  # Explicit 20 instead of len(sorted_features) ⬅️
-    # ax.set_yticklabels(wrapped_labels)
-    # ax.set_xlabel('Importance Score', labelpad=4, fontsize = 9, fontweight='bold')
+    ax.set_yticks(np.arange(20)[::-1])  # Explicit 20 instead of len(sorted_features) ⬅️
+    ax.set_yticklabels(wrapped_labels)
+    ax.set_xlabel('Importance Score', labelpad=4, fontsize = 9, fontweight='bold')
 
-    # # Adjust grid and spines
-    # ax.xaxis.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
-    # ax.spines['top'].set_visible(False)
-    # ax.spines['right'].set_visible(False)
+    # Adjust grid and spines
+    ax.xaxis.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
 
-    # plt.tight_layout(pad=0.5)
-    # plt.savefig(
-    #     "figures/ml_modelling/feature_importance.eps",
-    #     dpi=300,
-    #     format='eps',
-    #     bbox_inches='tight'
-    # )
-    # plt.show()
+    plt.tight_layout(pad=0.5)
+    plt.savefig(
+        "figures/ml_modelling/feature_importance.eps",
+        dpi=300,
+        format='eps',
+        bbox_inches='tight'
+    )
+    plt.show()
 
 
 if __name__ == "__main__":
-    
+    main()
