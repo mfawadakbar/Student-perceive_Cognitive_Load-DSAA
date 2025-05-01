@@ -76,7 +76,7 @@ def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
         'XGBoost': XGBRegressor(random_state=ALGO_SEED, n_estimators=100, n_jobs=1),
         'Gradient Boosting': GradientBoostingRegressor(random_state=ALGO_SEED),
         'KNN Regression': KNeighborsRegressor(n_neighbors=5),
-        'Extra Trees': ExtraTreesRegressor(random_state=ALGO_SEED, n_jobs=1)
+        'Extra Trees': ExtraTreesRegressor(n_estimators= 100, max_depth= None, min_samples_split=9, min_samples_leaf=2, max_features=0.9, bootstrap=False, criterion='absolute_error', ccp_alpha=0)
     }
 
     # Train and evaluate models
