@@ -40,7 +40,6 @@ def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
     # Create ordered feature list
     X_feats = sorted(list(set(merged_df.columns) - excluded))
     
-    print(f"Features used for modelling: {X_feats}")
     # Split students
     unique_students = merged_df['Student ID'].unique()
     train_students, test_students = train_test_split(
@@ -76,7 +75,7 @@ def main(SPLIT_SEED=SPLIT_SEED, ALGO_SEED=ALGO_SEED):
         'XGBoost': XGBRegressor(random_state=ALGO_SEED, n_estimators=100, n_jobs=1),
         'Gradient Boosting': GradientBoostingRegressor(random_state=ALGO_SEED),
         'KNN Regression': KNeighborsRegressor(n_neighbors=5),
-        'Extra Trees': ExtraTreesRegressor(n_estimators= 100, max_depth= None, min_samples_split=9, min_samples_leaf=2, max_features=0.9, bootstrap=False, criterion='absolute_error', ccp_alpha=0)
+        'Extra Trees': ExtraTreesRegressor(random_state=ALGO_SEED, n_estimators= 100, max_depth= None, min_samples_split=9, min_samples_leaf=2, max_features=0.9, bootstrap=False, criterion='absolute_error', ccp_alpha=0)
     }
 
     # Train and evaluate models
